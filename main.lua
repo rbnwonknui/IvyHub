@@ -523,64 +523,15 @@ function antoralib:MakeWindow(Configs)
 		end
 	end;LoadFile()
 	local UISizeX, UISizeY = unpack(antoralib.Save.UISize)
-
-	-- Liquid Glass: blur no mundo
-	local Lighting = game:GetService("Lighting")
-	if not Lighting:FindFirstChild("AntoraBlur") then
-		local BlurEffect = Instance.new("BlurEffect")
-		BlurEffect.Size = 24
-		BlurEffect.Name = "AntoraBlur"
-		BlurEffect.Parent = Lighting
-	end
-
 	local MainFrame = InsertTheme(Create("ImageButton", ScreenGui, {
 		Size = UDim2.fromOffset(UISizeX, UISizeY),
 		Position = UDim2.new(0.5, -UISizeX/2, 0.5, -UISizeY/2),
-		BackgroundTransparency = 0.55,
-		BackgroundColor3 = Color3.fromRGB(210, 220, 255),
+		BackgroundTransparency = 0,
 		Name = "Hub"
 	}), "Main")
-
-	-- Gradiente liquid glass
-	Create("UIGradient", MainFrame, {
-		Color = ColorSequence.new({
-			ColorSequenceKeypoint.new(0.00, Color3.fromRGB(220, 230, 255)),
-			ColorSequenceKeypoint.new(0.50, Color3.fromRGB(200, 215, 245)),
-			ColorSequenceKeypoint.new(1.00, Color3.fromRGB(180, 200, 240)),
-		}),
-		Transparency = NumberSequence.new({
-			NumberSequenceKeypoint.new(0, 0.45),
-			NumberSequenceKeypoint.new(1, 0.65),
-		}),
-		Rotation = 135
-	})
-
-	-- Borda vidro branca
-	Create("UIStroke", MainFrame, {
-		Color = Color3.fromRGB(255, 255, 255),
-		Thickness = 1.2,
-		Transparency = 0.35,
-		ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-	})
-
-	-- Reflexo no topo
-	local GlassReflect = Create("Frame", MainFrame, {
-		Size = UDim2.new(1, 0, 0.3, 0),
-		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-		BackgroundTransparency = 0.85,
-		BorderSizePixel = 0,
-		ZIndex = 2
-	})
-	Create("UIGradient", GlassReflect, {
-		Transparency = NumberSequence.new({
-			NumberSequenceKeypoint.new(0, 0.5),
-			NumberSequenceKeypoint.new(1, 1),
-		}),
-		Rotation = 90
-	})
-	Make("Corner", GlassReflect)
-
-	MakeDrag(MainFrame)
+	Make("Gradient", MainFrame, {
+		Rotation = 45
+	})MakeDrag(MainFrame)
 	local MainCorner = Make("Corner", MainFrame)
 	local Components = Create("Folder", MainFrame, {
 		Name = "Components"
