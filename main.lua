@@ -269,25 +269,17 @@ local function MakeDrag(Instance)
 			Active = true,
 			AutoButtonColor = false
 		})
-		local DragStart, StartPos, InputOn
-		local function Update(Input)
-			local delta = Input.Position - DragStart
-			local Position = UDim2.new(StartPos.X.Scale, StartPos.X.Offset + delta.X / UIScale, StartPos.Y.Scale, StartPos.Y.Offset + delta.Y / UIScale)
-			CreateTween({Instance, "Position", Position, 0.35})
-		end
-		Instance.MouseButton1Down:Connect(function()
-			InputOn = true
-		end)
+		local DragStart, StartPos
 		Instance.InputBegan:Connect(function(Input)
 			if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
 				StartPos = Instance.Position
 				DragStart = Input.Position
-				while UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do RunService.Heartbeat:Wait()
-					if InputOn then
-						Update(Input)
-					end
+				while UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
+					RunService.Heartbeat:Wait()
+					local mouse = UserInputService:GetMouseLocation()
+					local delta = mouse - Vector2.new(DragStart.X, DragStart.Y)
+					Instance.Position = UDim2.new(StartPos.X.Scale, StartPos.X.Offset + delta.X / UIScale, StartPos.Y.Scale, StartPos.Y.Offset + delta.Y / UIScale)
 				end
-				InputOn = false
 			end
 		end)
 	end)
