@@ -275,10 +275,10 @@ local function MakeDrag(Instance)
 				StartPos = Instance.Position
 				DragStart = Input.Position
 				while UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
-					RunService.Heartbeat:Wait()
+					RunService.RenderStepped:Wait()
 					local mouse = UserInputService:GetMouseLocation()
-					local delta = mouse - Vector2.new(DragStart.X, DragStart.Y)
-					Instance.Position = UDim2.new(StartPos.X.Scale, StartPos.X.Offset + delta.X / UIScale, StartPos.Y.Scale, StartPos.Y.Offset + delta.Y / UIScale)
+					local delta = (mouse - Vector2.new(DragStart.X, DragStart.Y)) / UIScale
+					Instance.Position = UDim2.new(0, StartPos.X.Offset + delta.X, 0, StartPos.Y.Offset + delta.Y)
 				end
 			end
 		end)
