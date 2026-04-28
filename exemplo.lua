@@ -1,97 +1,97 @@
---[[
-	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
-]]
-local redzlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/minhdepzai-v/LibraryRobloc/refs/heads/main/RedzLibrary.lua"))()
+local antoralib = loadstring(game:HttpGet("https://raw.githubusercontent.com/rbnwonknui/IvyHub/main/main.lua"))()
 
-local Window = redzlib:MakeWindow({
-  Title = "redz Hub : Blox Fruits",
-  SubTitle = "by redz9999",
-  SaveFolder = "testando | redz lib v5.lua"
+-- Criar janela
+local Window = antoralib:MakeWindow({
+    Name = "IvyHub",
+    SubTitle = "by: rbnwonknui",
+    SaveFolder = "IvyHub.json"
 })
+
+-- Botão de minimizar
 Window:AddMinimizeButton({
-    Button = { Image = "rbxassetid://71014873973869", BackgroundTransparency = 0 },
-    Corner = { CornerRadius = UDim.new(35, 1) },
+    Button = {
+        BackgroundTransparency = 0,
+        Image = "rbxassetid://71014873973869"
+    },
+    Corner = { CornerRadius = UDim.new(0, 35) }
 })
 
-local Tab1 = Window:MakeTab({"Um", "cherry"})
+-- aba principal
+local Tab1 = Window:MakeTab({ "Main", "home" })
 
-Tab1:AddDiscordInvite({
-    Name = "Name Hub",
-    Description = "Join server",
-    Logo = "rbxassetid://18751483361",
-    Invite = "Link discord invite",
+Tab1:AddSection("General")
+
+Tab1:AddParagraph({
+    "Welcome",
+    "This is an example script using IvyHub library."
 })
 
-Window:SelectTab(Tab1)
-
-local Section = Tab1:AddSection({"Section"})
-
-local Paragraph = Tab1:AddParagraph({"Paragraph", "This is a Paragraph\nSecond Line"})
-
-  local Dialog = Window:Dialog({
-    Title = "Dialog",
-    Text = "This is a Dialog",
-    Options = {
-      {"Confirm", function()
-        
-      end},
-      {"Maybe", function()
-        
-      end},
-      {"Cancel", function()
-        
-      end}
-    }
-  })
-  
-  Tab1:AddButton({"Print", function(Value)
-print("Hello World!")
-end})
-
-local Toggle1 = Tab1:AddToggle({
-  Name = "Toggle",
-  Description = "This is a <font color='rgb(88, 101, 242)'>Toggle</font> Example",
-  Default = false 
-})
-Toggle1:Callback(function(Value)
- 
-end)
-
-Tab1:AddToggle({
-    Name = "Toggle",
-    Default = false,
-    Callback = function(v)
-
+Tab1:AddButton({
+    "Print Hello",
+    function()
+        print("Hello World!")
     end
 })
 
-Tab1:AddSlider({
-  Name = "Speed",
-  Min = 1,
-  Max = 100,
-  Increase = 1,
-  Default = 16,
-  Callback = function(Value)
-  
-  end
+Tab1:AddToggle({
+    "God Mode",
+    false,
+    function(Value)
+        print("God Mode:", Value)
+    end,
+    "godmode_flag"
 })
 
-local Dropdown = Tab1:AddDropdown({
-  Name = "Players List",
-  Description = "Select the <font color='rgb(88, 101, 242)'>Number</font>",
-  Options = {"one", "two", "three"},
-  Default = "two",
-  Flag = "dropdown teste",
-  Callback = function(Value)
-    
-  end
+Tab1:AddSlider({
+    "Walk Speed",
+    16,   -- Min
+    500,  -- Max
+    1,    -- Increase
+    16,   -- Default
+    function(Value)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = Value
+    end,
+    "walkspeed_flag"
+})
+
+Tab1:AddDropdown({
+    "Select Team",
+    { "Red", "Blue", "Green" },
+    "Red",
+    function(Value)
+        print("Selected:", Value)
+    end,
+    "team_flag"
 })
 
 Tab1:AddTextBox({
-  Name = "Name item",
-  Description = "1 Item on 1 Server", 
-  PlaceholderText = "item only",
-  Callback = function(Value)
-    
-  end
+    "Custom Message",
+    "",
+    false,
+    function(Value)
+        print("Message:", Value)
+    end,
+    "Type here..."
+})
+
+-- Aba de informações do servidor
+local Tab2 = Window:MakeTab({ "Info", "info" })
+
+Tab2:AddServerInfo({
+    ScriptVersion = "v1.0"
+})
+
+-- Aba de suporte ao jogo
+local Tab3 = Window:MakeTab({ "Game", "gamepad" })
+
+Tab3:AddGameSupport({
+    PlaceId = game.PlaceId,
+    LastUpdate = "28/04/2026"
+})
+
+-- Notificação de boas-vindas
+Window:Notify({
+    Title = "IvyHub Loaded",
+    Content = "Script loaded successfully!",
+    Duration = 5
 })
