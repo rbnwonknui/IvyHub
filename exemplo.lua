@@ -1,4 +1,4 @@
-local antoralib = loadstring(game:HttpGet("https://raw.githubusercontent.com/rbnwonknui/IvyHub/main/main.lua"))()
+local antoralib = loadstring(game:HttpGet("https://raw.githubusercontent.com/rbnwonknui/IvyHub/refs/heads/main/main.lua"))()
 
 -- Criar janela
 local Window = antoralib:MakeWindow({
